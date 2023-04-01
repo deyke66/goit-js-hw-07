@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
 const gallerySpace = document.querySelector('.gallery');
 
 gallerySpace.addEventListener('click', onGalleryClick);
@@ -34,25 +32,23 @@ function onGalleryClick(evt) {
 
     const targetEvent = evt.target.dataset.source
 
-    modalForGallery(targetEvent);
-
-    
-    
+    modalForGallery(targetEvent); 
 }
 
 function modalForGallery(params) {
     const instance = basicLightbox.create(`
     <img src="${params}">
-    `,{closable: true,})
+    `, {
+      onShow: (instance) => { gallerySpace.addEventListener('keydown', onCloseModalButton) },
+      onClose: (instance) => { gallerySpace.removeEventListener('keydown', onCloseModalButton) }
+    })
 
     instance.show()
 
-    gallerySpace.addEventListener('keydown', onCloseModalButton);
+  function onCloseModalButton(e) {
+  if (e.code === "Escape") {
+      instance.close()
+    }
 }
 
-// function onCloseModalButton(e) {
-//     console.log(e.code)
-//     if (e.code === "Escape") {
-//         instance.close()
-//     }
-// }
+}
