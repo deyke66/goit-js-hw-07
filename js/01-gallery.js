@@ -40,8 +40,8 @@ function modalForGallery(params) {
     const instance = basicLightbox.create(`
     <img src="${params}">
     `, {
-      onShow: (instance) => { gallerySpace.addEventListener('keydown', onCloseModalButton) },
-      onClose: (instance) => { gallerySpace.removeEventListener('keydown', onCloseModalButton) }
+      onShow: (instance) => { document.addEventListener('keydown', onCloseModalButton) },
+      onClose: (instance) => { document.removeEventListener('keydown', onCloseModalButton) }
     })
 
     instance.show()
